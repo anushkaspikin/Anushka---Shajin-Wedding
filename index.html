@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173d32">
+<meta name="description" content="Anushka & Shajin Jose — 17 & 18 January 2027">
+<title>Anushka & Shajin Jose | Wedding Invitation</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+:root {
+  --green: #173d32;
+  --deep: #102e26;
+  --sage: #a6b8a0;
+  --cream: #f7f4eb;
+  --muted: #d9e1d4;
+  --ink: #243b30;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+
+.hero {
+  min-height: 100svh;
+  background: var(--green);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 45px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before, .hero::after {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 360px;
+  border: 1px solid #8da58b55;
+  border-radius: 100% 0 100% 0;
+  transform: rotate(25deg);
+  pointer-events: none;
+}
+.hero::before { top: -190px; left: -100px; }
+.hero::after { bottom: -210px; right: -100px; transform: rotate(205deg); }
+.hero-inner { width: 100%; max-width: 620px; position: relative; z-index: 1; }
+.eyebrow {
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 10px;
+  color: var(--sage);
+}
+.names {
+  font-size: clamp(44px, 10vw, 78px);
+  line-height: 1.05;
+  font-weight: normal;
+  margin: 20px 0 8px;
+}
+.ampersand {
+  color: #b8c8ac;
+  font-size: 32px;
+  font-style: italic;
+  margin: 8px 0;
+}
+.date { letter-spacing: 2px; font-size: 14px; margin-top: 20px; }
+.hero-art { width: min(300px, 78%); height: auto; display: block; margin: 20px auto 12px; }
+.hero-note { color: var(--muted); font-size: 14px; line-height: 1.8; }
+
+.scroll-hint {
+  margin: 23px auto 0;
+  color: #d9e1d4;
+  font: 10px Arial, sans-serif;
+  letter-spacing: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  transition: opacity .4s ease;
+}
+.scroll-hint .arrow { font-size: 20px; animation: nudge 1.8s ease-in-out infinite; }
+@keyframes nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+.scroll-hint.hidden { opacity: 0; }
+
+.section { padding: 70px 20px; text-align: center; }
+.section-inner { max-width: 780px; margin: auto; }
+.section-label {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #6c866f;
+  font: 10px Arial, sans-serif;
+}
+h2 { font-weight: normal; font-size: clamp(30px, 6vw, 43px); margin: 15px 0 28px; }
+.intro { max-width: 470px; margin: 0 auto; line-height: 1.9; font-size: 16px; }
+
+.countdown { display: flex; justify-content: center; gap: clamp(15px, 5vw, 38px); margin-top: 32px; }
+.count-number { font-size: 31px; display: block; }
+.count-label {
+  font: 9px Arial, sans-serif;
+  letter-spacing: 2px;
+  color: #718473;
+  display: block;
+  margin-top: 8px;
+}
+
+.events { background: #e9eee4; }
+.event-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; text-align: left; }
+.event-card {
+  background: var(--cream);
+  padding: 26px 22px;
+  border: 1px solid #d6dfd1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.event-card.full { grid-column: 1 / -1; }
+.event-date { font: 10px Arial, sans-serif; letter-spacing: 1.3px; color: #718473; text-transform: uppercase; line-height: 1.7; }
+.event-card h3 { font-weight: normal; font-size: 28px; margin: 16px 0 8px; }
+.event-time { font-size: 15px; margin: 0 0 16px; }
+.event-place { font-size: 14px; line-height: 1.8; margin-bottom: 20px; }
+.map-link {
+  display: inline-block;
+  margin-top: auto;
+  text-decoration: none;
+  border-bottom: 1px solid #6c866f;
+  padding-bottom: 5px;
+  font: 11px Arial, sans-serif;
+  letter-spacing: .5px;
+}
+
+.family-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 35px; }
+.family-title { font: 10px Arial, sans-serif; text-transform: uppercase; letter-spacing: 2px; color: #718473; margin-bottom: 16px; }
+.family-names { font-size: 16px; line-height: 2; }
+.brother { margin-top: 30px; font-size: 14px; line-height: 1.8; }
+
+.qr-section { background: #e9eee4; }
+#qrcode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  min-height: 150px;
+  padding: 10px;
+  margin: 8px auto 20px;
+  background: white;
+}
+#qrcode img, #qrcode canvas { max-width: 100%; height: auto; }
+.qr-note { font: 12px Arial, sans-serif; color: #657565; }
+.actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
+.action {
+  border: 1px solid #a8b8a3;
+  padding: 13px 18px;
+  min-height: 44px;
+  background: transparent;
+  color: var(--ink);
+  font: 12px Arial, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+.action:hover { background: #dce5d8; }
+.music-status { font: 12px Arial, sans-serif; color: var(--muted); margin-top: 12px; }
+footer { background: var(--deep); color: var(--cream); padding: 35px 20px; text-align: center; }
+footer p { font-size: 22px; margin: 0 0 10px; }
+footer small { color: var(--sage); letter-spacing: 1px; }
+
+@media (max-width: 540px) {
+  .event-grid { grid-template-columns: 1fr; }
+  .event-card.full { grid-column: auto; }
+  .family-grid { gap: 16px; }
+  .family-names { font-size: 14px; }
+  .section { padding: 58px 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div class="eyebrow">Together with their families</div>
+    <h1 class="names">Anushka</h1>
+    <div class="ampersand">&amp;</div>
+    <div class="names" style="font-size:clamp(35px,8vw,61px)">Shajin Jose</div>
+
+    <svg class="hero-art" viewBox="0 0 320 210" role="img" aria-label="Illustration of a bride in a white gown and groom in a black suit, seen from behind">
+      <g fill="none" stroke="#8da58b" stroke-width="1.2" opacity=".8">
+        <path d="M35 170 Q12 112 39 63 Q46 95 65 106 Q37 127 35 170Z"/>
+        <path d="M40 145 Q60 105 75 83"/>
+        <path d="M286 172 Q310 117 284 68 Q275 100 258 111 Q284 133 286 172Z"/>
+        <path d="M282 145 Q260 107 246 85"/>
+        <path d="M55 188 Q85 170 105 183"/>
+        <path d="M266 188 Q235 170 215 183"/>
+      </g>
+      <!-- Bride in a white gown, viewed from behind -->
+      <ellipse cx="160" cy="194" rx="91" ry="7" fill="#0c2a22" opacity=".5"/>
+      <path d="M122 82 Q103 95 94 129 L77 187 Q117 198 158 190 L149 126 Q145 98 132 85Z" fill="#f5f1e7"/>
+      <path d="M124 83 Q119 111 117 141 L114 187 M139 84 Q143 116 147 151 L158 190" stroke="#d7d6c8" fill="none"/>
+      <path d="M118 65 Q119 48 132 48 Q145 50 145 66 L141 83 L122 83Z" fill="#e6c5aa"/>
+      <path d="M117 62 Q112 41 130 39 Q150 39 147 62 L142 55 Q129 49 120 59Z" fill="#49362e"/>
+      <path d="M119 83 L109 97 L98 117 M139 84 L151 100 L165 110" stroke="#e6c5aa" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <!-- Groom in a black suit, viewed from behind -->
+      <path d="M172 86 L199 86 Q211 96 216 123 L228 185 L162 185 L165 122 Q165 99 172 86Z" fill="#18231f"/>
+      <path d="M173 87 L186 107 L183 157 L164 184 L169 118Z M198 87 L187 107 L194 157 L226 184 L214 120Z" fill="#f2eee5"/>
+      <path d="M181 106 L190 106 L193 137 L185 145 L179 137Z" fill="#72866e"/>
+      <path d="M175 68 Q174 49 187 48 Q201 49 201 68 L198 84 L178 84Z" fill="#9b684d"/>
+      <path d="M174 63 Q168 43 187 39 Q205 42 202 65 L197 54 Q187 47 177 57Z" fill="#302721"/>
+      <path d="M177 84 L168 98 L160 112 M198 84 L209 98 L216 113" stroke="#9b684d" stroke-width="8" stroke-linecap="round" fill="none"/>
+    </svg>
+
+    <div class="eyebrow">Save the date</div>
+    <div class="date">17 &amp; 18 JANUARY 2027</div>
+    <p class="hero-note">A beautiful beginning, shared with the people we love.</p>
+
+    <div class="scroll-hint" id="scrollHint" aria-hidden="true">
+      <span>SCROLL TO EXPLORE</span>
+      <span class="arrow">↓</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">The countdown</div>
+    <h2>Until our day</h2>
+    <p class="intro">Two special days. One new beginning. We look forward to celebrating with you.</p>
+    <div class="countdown" aria-live="off">
+      <div><span class="count-number" id="days">--</span><span class="count-label">DAYS</span></div>
+      <div><span class="count-number" id="hours">--</span><span class="count-label">HOURS</span></div>
+      <div><span class="count-number" id="minutes">--</span><span class="count-label">MINUTES</span></div>
+      <div><span class="count-number" id="seconds">--</span><span class="count-label">SECONDS</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section events">
+  <div class="section-inner">
+    <div class="section-label">Join us</div>
+    <h2>Celebration Details</h2>
+    <div class="event-grid">
+      <article class="event-card">
+        <div class="event-date">Sunday · 17 January 2027</div>
+        <h3>Reception</h3>
+        <p class="event-time">5:30 PM</p>
+        <div class="event-place">CSI Community Hall<br>Vadakkankarai</div>
+        <a class="map-link" href="https://maps.app.goo.gl/hxduo3CGiy6e7QjK9" target="_blank" rel="noopener">GET DIRECTIONS ↗</a>
+      </article>
+
+      <article class="event-card">
+        <div class="event-date">Monday · 18 January 2027</div>
+        <h3>Wedding Ceremony</h3>
+        <p class="event-time">10:30 AM</p>
+        <div class="event-place">CSI Church<br>Vadakkankarai</div>
+        <a class="map-link" href="https://maps.app.goo.gl/Kru5WMGYUgGqqVjW7" target="_blank" rel="noopener">GET DIRECTIONS ↗</a>
+      </article>
+
+      <article class="event-card full">
+        <div class="event-date">Monday · 18 January 2027 · Following the ceremony</div>
+        <h3>Wedding Lunch</h3>
+        <div class="event-place">CSI Community Hall<br>Vadakkankarai</div>
+        <a class="map-link" href="https://maps.app.goo.gl/hxduo3CGiy6e7QjK9" target="_blank" rel="noopener">GET DIRECTIONS ↗</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">With love from our families</div>
+    <h2>Our Families</h2>
+    <div class="family-grid">
+      <div>
+        <div class="family-title">Bride's Parents</div>
+        <div class="family-names">Spikin D S<br>J Amala Thanka Kumari</div>
+      </div>
+      <div>
+        <div class="family-title">Groom's Parents</div>
+        <div class="family-names">E Joseph Raj<br>C Sasikala</div>
+      </div>
+    </div>
+    <div class="brother">With love from the bride's brother<br><strong>Anshul S A</strong></div>
+  </div>
+</section>
+
+<section class="section qr-section">
+  <div class="section-inner">
+    <div class="section-label">Share the invitation</div>
+    <h2>Save &amp; Share</h2>
+    <p class="intro">Share our invitation with family and friends.</p>
+    <div id="qrcode" aria-label="QR code for this wedding invitation">Your QR code will appear here after the page loads.</div>
+    <div class="qr-note">Scan to open our wedding invitation</div>
+    <div class="actions">
+      <button class="action" id="shareButton" type="button">SHARE INVITATION ↗</button>
+      <button class="action" id="musicButton" type="button">PLAY MUSIC ♫</button>
+    </div>
+    <div class="music-status" id="musicStatus" style="color:#657565">A licensed instrumental track will be added later.</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>Anushka &amp; Shajin Jose</p>
+  <small>17 &amp; 18 JANUARY 2027 · WITH LOVE</small>
+</footer>
+
+<audio id="weddingMusic" loop preload="none" src="assets/song.mp3"></audio>
+
+<script>
+/* Countdown */
+function updateCountdown() {
+  const target = new Date("2027-01-18T10:30:00+05:30").getTime();
+  const remaining = target - Date.now();
+  const values = {
+    days: Math.max(0, Math.floor(remaining / 86400000)),
+    hours: Math.max(0, Math.floor((remaining % 86400000) / 3600000)),
+    minutes: Math.max(0, Math.floor((remaining % 3600000) / 60000)),
+    seconds: Math.max(0, Math.floor((remaining % 60000) / 1000))
+  };
+  for (const [id, value] of Object.entries(values)) {
+    document.getElementById(id).textContent = String(value).padStart(2, "0");
+  }
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* QR code uses the actual published page URL */
+function createQR() {
+  const container = document.getElementById("qrcode");
+  if (typeof QRCode === "undefined") {
+    container.textContent = "QR unavailable. Please reload when online.";
+    return;
+  }
+  container.innerHTML = "";
+  new QRCode(container, {
+    text: window.location.href,
+    width: 150,
+    height: 150,
+    colorDark: "#173d32",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+}
+createQR();
+
+/* Share invitation */
+document.getElementById("shareButton").addEventListener("click", async () => {
+  const shareData = {
+    title: "Anushka & Shajin Jose | Wedding Invitation",
+    text: "Join us as we celebrate our wedding on 18 January 2027.",
+    url: window.location.href
+  };
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Invitation link copied!");
+    } else {
+      prompt("Copy your invitation link:", window.location.href);
+    }
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      alert("You can copy the invitation link from the browser address bar.");
+    }
+  }
+});
+
+/* Music control: add a licensed track at assets/song.mp3 later */
+const music = document.getElementById("weddingMusic");
+const musicButton = document.getElementById("musicButton");
+const musicStatus = document.getElementById("musicStatus");
+
+musicButton.addEventListener("click", async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      musicButton.textContent = "PAUSE MUSIC ♫";
+      musicStatus.textContent = "Now playing";
+    } catch (error) {
+      musicStatus.textContent = "A licensed track must be added before music can play.";
+    }
+  } else {
+    music.pause();
+    musicButton.textContent = "PLAY MUSIC ♫";
+    musicStatus.textContent = "Music paused";
+  }
+});
+
+/* Gentle automatic scroll, only until the visitor interacts.
+   Disabled for reduced-motion preferences. */
+(function setupAutoScroll() {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const hint = document.getElementById("scrollHint");
+  let stopped = false;
+  let started = false;
+  let frameId = null;
+  let startTimer = null;
+  let lastTime = 0;
+
+  function stopAutoScroll() {
+    if (stopped) return;
+    stopped = true;
+    if (startTimer) clearTimeout(startTimer);
+    if (frameId) cancelAnimationFrame(frameId);
+    hint.classList.add("hidden");
+    removeListeners();
+  }
+
+  function removeListeners() {
+    window.removeEventListener("wheel", stopAutoScroll);
+    window.removeEventListener("touchstart", stopAutoScroll);
+    window.removeEventListener("touchmove", stopAutoScroll);
+    window.removeEventListener("pointerdown", stopAutoScroll);
+    window.removeEventListener("keydown", onKeydown);
+    window.removeEventListener("scroll", onManualScroll);
+    document.removeEventListener("click", onClick);
+  }
+
+  function onKeydown(event) {
+    if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) {
+      stopAutoScroll();
+    }
+  }
+
+  function onClick(event) {
+    if (event.target.closest("a, button")) stopAutoScroll();
+  }
+
+  function onManualScroll() {
+    if (!started) return;
+    if (Math.abs(window.scrollY - previousY) > 3) stopAutoScroll();
+    previousY = window.scrollY;
+  }
+
+  let previousY = window.scrollY;
+
+  if (reducedMotion.matches) {
+    hint.classList.add("hidden");
+    return;
+  }
+
+  window.addEventListener("wheel", stopAutoScroll, { passive: true });
+  window.addEventListener("touchstart", stopAutoScroll, { passive: true });
+  window.addEventListener("touchmove", stopAutoScroll, { passive: true });
+  window.addEventListener("pointerdown", stopAutoScroll, { passive: true });
+  window.addEventListener("keydown", onKeydown);
+  document.addEventListener("click", onClick);
+
+  function animate(time) {
+    if (stopped) return;
+    if (!lastTime) lastTime = time;
+    const elapsed = time - lastTime;
+    lastTime = time;
+
+    /* Approx. 15 pixels per second, for comfortable reading */
+    const distance = elapsed * 0.015;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
+    if (window.scrollY >= maxScroll - 1) {
+      stopAutoScroll();
+      return;
+    }
+
+    window.scrollBy(0, distance);
+    frameId = requestAnimationFrame(animate);
+  }
+
+  /* Let visitors see the cover before the invitation starts moving */
+  startTimer = setTimeout(() => {
+    if (stopped || window.scrollY > 3) return;
+    started = true;
+    previousY = window.scrollY;
+    window.addEventListener("scroll", onManualScroll, { passive: true });
+    frameId = requestAnimationFrame(animate);
+  }, 4500);
+})();
+</script>
+</body>
+</html>
