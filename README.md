@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -288,4 +290,8 @@ h2{font-weight:400;font-size:clamp(30px,6vw,43px);line-height:1.15;margin:0 0 18
 })();
 </script>
 </body>
-</html>
+</html>'''
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"Created replacement website file: {path} ({len(html):,} characters)")
